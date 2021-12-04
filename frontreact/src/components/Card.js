@@ -1,5 +1,5 @@
 import React from 'react';
-
+import '../styles/_card.scss'
 /**
  * Using react component based on function
  * @param {*} props
@@ -8,7 +8,8 @@ import React from 'react';
 export const Card = (props) => {
   const { name, picture, price, isActive } = props;
   return (
-    <div>
+    
+    <div className={`card ${isActive === "false"?"inactive":""}`}>
       <div className='card-header'>
         <p className='card-title'>{name}</p>
         <span className='material-icons card-favorite'>favorite_border</span>
@@ -18,5 +19,7 @@ export const Card = (props) => {
         <p className='price'>$ {price}</p>
       </div>
     </div>
+
   );
 };
+export default Card;

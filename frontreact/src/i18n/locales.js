@@ -4,3 +4,4 @@ export const LOCALES = {
   FRENCH: "fr-ca",
   SPANISH: "es-co",
 };
+ export default LOCALES;

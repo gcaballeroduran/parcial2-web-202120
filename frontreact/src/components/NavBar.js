@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { I18nSelect } from './I18nSelect';
+import localeEsMessages from "../i18n/messages/es-co";
+import LOCALES from "../i18n/locales"
 
 export const NavBar = ({ onSearchKeyChange, setLanguage }) => {
   const [navState, setNavState] = useState({ showingSearch: false });
@@ -11,6 +13,7 @@ export const NavBar = ({ onSearchKeyChange, setLanguage }) => {
     setNavState({ showingSearch: !navState.showingSearch });
   };
 
+
   return (
     <header className='menu'>
       <div className='menu-container'>
@@ -19,18 +22,19 @@ export const NavBar = ({ onSearchKeyChange, setLanguage }) => {
           <nav className='menu-items'>
             <div className='menu-links'>
               <Link className='nav-item' aria-current='page' to='/'>
-                Home
+              <FormattedMessage id = "home"/>
               </Link>
               <Link className='nav-item' aria-current='page' to='/report'>
-                Report
+                <FormattedMessage id = "report"/>
               </Link>
             </div>
             <div className='menu-actions'>
               <span onClick={(e) => showSearchContainer(e)}>
                 <i className='material-icons search'>search</i>
               </span>
-              <I18nSelect></I18nSelect>
+              <I18nSelect setLanguage= {setLanguage}></I18nSelect>
             </div>
+            
           </nav>
         </div>
       </div>
@@ -41,7 +45,9 @@ export const NavBar = ({ onSearchKeyChange, setLanguage }) => {
       >
         <input
           type='text'
-          onChange={(e) => onSearchKeyChange(e.target.value)}
+          onChange={(e) => onSearchKeyChange(e.target.value)
+          
+          }
         />
         <span onClick={(e) => showSearchContainer(e)}>
           <i className='material-icons close'>close</i>

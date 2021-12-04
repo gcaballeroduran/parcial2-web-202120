@@ -1,17 +1,19 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
+import '../styles/pages/_report.scss'
 
-export const Chart = ({ width = 600, height = 600, data }) => {
+export const Chart = ({ width = 900, height = 600, data }) => {
   const barChart = useRef();
 
   useEffect(() => {
-    const margin = { top: 10, left: 50, bottom: 40, right: 10 };
+    const margin = { top: 10, left: 50, bottom: 200, right: 10 };
     const iwidth = width - margin.left - margin.right;
     const iheight = height - margin.top - margin.bottom;
 
     const svg = d3.select(barChart.current);
     svg.attr('width', width);
     svg.attr('height', height);
+    
 
     let g = svg
       .append('g')
@@ -24,8 +26,37 @@ export const Chart = ({ width = 600, height = 600, data }) => {
       .domain(data.map((d) => d.name))
       .range([0, iwidth])
       .padding(0.1);
-
     // Continue with implementation. Don't forget the tooltip
+
+    const bars = g.selectAll("rect").data(data);
+
+    bars.enter().append("rect")
+      .attr("class", "bar")
+      .style("fill", "#69b3a2")
+      .attr("x", d => x(d.name))
+      .attr("y", d => y(d.stock))
+      .attr("height", d => iheight - y(d.stock))
+      .attr("width", x.bandwidth())
+      .append("Name")
+      .text((d)=> `${d.name}:${d.stock}`);
+
+     g.append("g")
+      .classed("x--axis", true)
+      .call(d3.axisBottom(x))
+      .attr("transform", `translate(0, ${iheight})`)
+
+  .selectAll("text")
+    .attr("y", 0)
+    .attr("x", 9)
+    .attr("dy", ".35em")
+    .attr("transform", "rotate(90)")
+    .style("text-anchor", "start");
+
+    g.append("g")
+      .classed("y--axis", true)
+      .call(d3.axisLeft(y));
+    
+      
   });
 
   return (
@@ -34,3 +65,5 @@ export const Chart = ({ width = 600, height = 600, data }) => {
     </div>
   );
 };
+
+export default Chart;

@@ -10,10 +10,10 @@ const searchProductsURL = (searchKey) =>
  * Call api for searching products by query
  * @param {*} query
  */
-const getProductsService = (query) => {
+export const getProductsService = (query) => {
   return fetch(searchProductsURL(query)).then(getJSON);
 };
 
 const getJSON = (response) => response.json();
 
-export { getProductsService };
+export default { getProductsService };
